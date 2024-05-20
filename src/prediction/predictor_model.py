@@ -6,10 +6,7 @@ import pandas as pd
 from schema.data_schema import ForecastingSchema
 from autogluon.timeseries import TimeSeriesDataFrame, TimeSeriesPredictor
 from sklearn.exceptions import NotFittedError
-from torch import cuda
-from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from logger import get_logger
-from torch import cuda
 
 
 warnings.filterwarnings("ignore")
@@ -121,7 +118,7 @@ class Forecaster:
             seasonal_period (int or None, default = None)
                 Number of time steps in a complete seasonal cycle for seasonal models.
                 If None, the seasonal period is inferred from the data.
-            
+
             use_static_features (bool):
                 Whether the model should use static features if available.
 
@@ -231,7 +228,7 @@ class Forecaster:
         future_covariates = None
         if self.use_future_covariates:
             future_covariates = self.data_schema.future_covariates
-        
+
         self.model = TimeSeriesPredictor(path=os.path.join(model_dir_path, MODEL_FILE_NAME),
                                          target=self.data_schema.target,
                                          prediction_length=self.data_schema.forecast_length,
